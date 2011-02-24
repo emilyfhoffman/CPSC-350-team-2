@@ -33,7 +33,7 @@
 	<key>Java</key>
 	<dict>
 		<key>MainClass</key>
-		<string>classes.FullScreenView</string>
+		<string>recipeinstall.InstallFrame</string>
 		<key>ClassPath</key>
 		<string>$APP_PACKAGE/Contents/Resources/Java/RecipeInstall.jar:</string>
 		<key>Properties</key>
