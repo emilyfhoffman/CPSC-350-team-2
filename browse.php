@@ -6,55 +6,38 @@
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-<?php
-   //include('header.html');
-   //include('dbconnect.php');
-   $name = $_POST['recipe_name'];
-   $dishType = $_POST['dist_type'];
-   $main1 = $_POST['ingredients'];
-   $instructions = $_POST['instructions'];
-?>
-
 <div id="container">
   <div id="left_column">
-    <div id="title">Recipe <span> Added</span></div>
+    <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
-      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
+      <div id="header_slogan">Insert Catchy Slogan</div>
     </div>
+	
+	<!--at this point, i need to insert some check-boxes into the main page portion for browsing 
+		options:
+			ingredient
+			meal type
+			name(alphabetical)
+			-->
+	
     <div id="left_content">
-      <h1>Your Recipe Has Been Added<br />
-        <span>The Following:</span></h1>
-        
-      <p>Thank you for adding your recipe so everyone can view and enjoy!</p>
-      
-      <form method = "post" action = "echoAddRecipe.php">
-      	<table>
-      	
-      	<tr><td>Recipe Name</td><td>
-				<?php
-					echo $name;
-				?>
-					
-		<tr><td>Cuisine</td><td>
-				<?php
-					echo $cuisine;
-				?>
-					
-		<tr><td>Main Ingredients</td><td>
-				<?php
-					echo $main1." & ".$main2;
-					//$query = "INSERT INTO abductions VALUES ('$location', '$date', '$scary')";
-					//$results = mysqli_query($db, $query);			
-				?>
-					
-		<tr><td>Instructions</td><td>
-				<?php
-					echo $instructions;
-				?>
-				
-		</table>
-      </form>
+	<?php
+	   include("db_connect.php");
+	   
+	   /**/
+	   $query = "select id, recipe_name from recipes order by recipe_name;";
+	   echo "<table border='1'>";
+	   $result = mysqli_query($db, $query);
+	   while($row = mysqli_fetch_array($result)){
+	   	$name = $row['recipe_name'];
+		$id = $row['id'];
+	   	echo "<tr><td>";
+		echo "<a href=\"recipe.php?id=$id\">$name</a>";
+		echo "</td></tr>";
+	   }
+   	   echo "</table>";
+  
+	?>
     </div>
   </div>
   <div id="right_column">
@@ -63,8 +46,8 @@
       <div class="menu_list">
         <ul>
           <li><a href="index.html">HOME PAGE</a></li>
-          <li><a href="addRecipe.html">ADD RECIPES</a></li>
-          <li><a href="http://www.free-css.com/">SEARCH RECIPES</a></li>
+          <li><a href="addRecipe.php">ADD RECIPES</a></li>
+          <li><a href="search.php">SEARCH RECIPES</a></li>
           <li><a href="http://www.free-css.com/">REVIEW RECIPES</a></li>
           <li><a href="http://www.free-css.com/">ADD COMMENTS</a></li>
           <li><a href="http://www.free-css.com/">SETTINGS</a></li>
@@ -92,7 +75,7 @@
       Email: info [at] templatemo.com<br />
     </div>
   </div>
-  <div id="footer">Copyright Â© Your Company Name - Designed by <a href="http://www.templatemo.com">TemplateMo.com</a></div>
+  <div id="footer">Copyright © Your Company Name - Designed by <a href="http://www.templatemo.com">TemplateMo.com</a></div>
 </div>
 </body>
 </html>

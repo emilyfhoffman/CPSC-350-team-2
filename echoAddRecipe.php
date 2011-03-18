@@ -20,13 +20,13 @@
   <div id="left_column">
     <div id="title">Recipe <span> Added</span></div>
     <div id="header">
-      <div id="header_slogan">Thanks!</div>
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
       <h1>Your Recipe Has Been Added<br />
         <span>The Following:</span></h1>
         
-      <p>This is an online recipe-sharing community... etc.</p>
+      <p>Thank you for adding your recipe so everyone can view and enjoy!</p>
       
       <form method = "post" action = "echoAddRecipe.php">
       	<table>
