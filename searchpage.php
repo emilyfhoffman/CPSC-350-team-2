@@ -16,21 +16,22 @@
 	
 	<!--included two new forms - Search form and Select Search Parameter radio buttons
 		this passes info along to search.php so that it can execute with proper params.-->
-	<h4>Browse Dishes!</h4>
-	<h4>Choose a dish type by which to browse...</h4>
-	<form name="browseform" method = "post" action = "browsing.php">
-	<Input type = 'Radio' Name ='searchtype' value= 'drinks'>Browse Drinks<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'desserts'>Browse Desserts<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'main dish'>Browse Main Dishes<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'breakfast'>Browse Breakfasts<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'appetizer'>Browse Appetizers<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'side dish'>Browse Side Dishes<br />
-	<input type = "submit" class = "formbutton" value="GO!"/>
+	<h4>Search</h4>
+		<form action="search.php" method="get" class="searchform">
+		<p>
+			<input type="text" id="searchq" name="searchText" />
+			<input type="submit" class="formbutton" value="Search" />
+		</p>
+	</form>
+	<h4>Select Search Parameter</h4>
+	<form name ="form1" Method ="Post" action = "search.php">
+	<Input type = 'Radio' Name ='searchtype' value= 'name'>Search by recipe name
+	<Input type = 'Radio' Name ='searchtype' value= 'ingredient'>Search by Ingredient
 	</form>
 	
     </div>
   </div>
-	<?php include("header_right.html"); ?>
+	<?php //include("header_right.html"); ?>
 </div>
 </body>
 </body>

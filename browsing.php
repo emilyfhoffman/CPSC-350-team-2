@@ -19,18 +19,44 @@
 	<h4>Browse Dishes!</h4>
 	<h4>Choose a dish type by which to browse...</h4>
 	<form name="browseform" method = "post" action = "browsing.php">
-	<Input type = 'Radio' Name ='searchtype' value= 'drinks'>Browse Drinks<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'desserts'>Browse Desserts<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'main dish'>Browse Main Dishes<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'breakfast'>Browse Breakfasts<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'appetizer'>Browse Appetizers<br />
-	<Input type = 'Radio' Name ='searchtype' value= 'side dish'>Browse Side Dishes<br />
+	
+	<Select name = 'dish_type'>
+	<option>drink</option>
+	<option>dessert</option>
+	<option>main dish</option>
+	<option>breakfast</option>
+	<option>appetizer</option>
+	<option>side dish</option>
+	<option>Other</option>
+	<option>ALL</option>
 	<input type = "submit" class = "formbutton" value="GO!"/>
+	
 	</form>
+	<table>
+	<tr><th>Recipe Name</th></tr>
+	<?php
+		include('db_connect.php');
+		$browse_by = $_POST['dish_type'];
+		if($browse_by != NULL){
+			if($browse_by == 'ALL'){
+				$query = "SELECT id,recipe_name FROM recipes;";
+			}else{
+				$query = "SELECT id,recipe_name FROM recipes WHERE dish_type = '$browse_by';";
+			}
+			$result = mysqli_query($db, $query);
+			while($row = mysqli_fetch_array($result)){
+				$name = $row['recipe_name'];
+				$id = $row['id'];
+				echo "<tr><td><a href=\"recipe.php?id=$id\">$name</a></td></tr>";
+			}
+		}
+	?>
+	
+	</table>
 	
     </div>
   </div>
-	<?php include("header_right.html"); ?>
+	<?php include("header_right.php"); ?>
 </div>
 </body>
 </body>
