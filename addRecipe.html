@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<?php
-  session_start();
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,52 +8,49 @@
 <body>
 <div id="container">
   <div id="left_column">
-    <div id="title">Dish in a <span> Flash</span></div>
+    <div id="title">Add A <span> Recipe</span></div>
     <div id="header">
-      <div id="header_slogan"> Need to find a recipe fast come to a Dish in a Flash! </div>
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
-=======
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Dish in a Flash</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="container">
-  <div id="left_column">
-    <div id="title">Dish in a <span> Flash</span></div>
-    <div id="header">
-      <div id="header_slogan"> Yum! </div>
-    </div>
->>>>>>> c081c146c6cce8af142ad98fc506e371790329e7
     <div id="left_content">
-	<?php
-	  include("db_connect.php");
-
-	   $id = $_GET['id'];
-	   $query = "select * from recipes where id = $id;";
-	   $result = mysqli_query($db, $query);
-	   $row = mysqli_fetch_array($result);
-	   	$name = $row['recipe_name'];
-		$ingredients = $row['ingredients'];
-		$instructions = $row['instructions'];
-		$dish_type = $row['dist_type'];
-	   	echo "<h1>$name</h1> <br />";
-		echo "$dish_type <br />";
-		echo "$ingredients <br />";
-		echo "$instructions";
-   
-  
-	?>
-<<<<<<< HEAD
-    </div>
-  </div>
-	<?php include("header_right.php"); ?>
-</div>
-</body>
-=======
+      <h1>Form to Add Recipe<br />
+        <span>Add below:</span></h1>
+        
+      <p>Please add a recipe so everyone can view and enjoy!</p>
+      
+      <form method = "post" action = "echoAddRecipe.html">
+      	<table>
+      	
+		<tr><td>Recipe Name</td><td><input type="text" name="recipe_name" id="name" size="20"/>
+		    </td></tr>
+		    
+		<tr><td>Cuisine</td><td>
+			<select name="dist_type">
+				<option>Scroll Down to Select</option>
+				<option>Breakfast</option>
+				<option>Appetizer</option>
+				<option>Main Dish</option>
+				<option>Side Dish</option>
+				<option>Desserts</option>
+				<option>Breads</option>
+				<option>Sauces/Mixes</option>
+				<option>Drinks</option>
+			</select></td></tr>
+			
+		<tr><td>Ingredients</td><td><input type="text" name="ingredients" id="main1" size="20" />
+		
+		<!--<tr><td>Main 2</td><td><input type="text" name="main2" id="main2" size="20" /> -->
+		
+		<tr><td>Instructions</td><td>
+			<textarea name="instructions" id="instructions" cols="40" rows="5">
+Enter your instructions here...
+			</textarea><br>
+		</td>
+		
+		<tr><td>Submit</td><td><input type="submit" value="Submit" />
+		    
+		</table>
+      </form>
     </div>
   </div>
   <div id="right_column">
@@ -66,8 +59,8 @@
       <div class="menu_list">
         <ul>
           <li><a href="index.html">HOME PAGE</a></li>
-          <li><a href="addRecipe.php">ADD RECIPES</a></li>
-          <li><a href="search.php">SEARCH RECIPES</a></li>
+          <li><a href="http://www.free-css.com/">ADD RECIPES</a></li>
+          <li><a href="http://www.free-css.com/">SEARCH RECIPES</a></li>
           <li><a href="http://www.free-css.com/">REVIEW RECIPES</a></li>
           <li><a href="http://www.free-css.com/">ADD COMMENTS</a></li>
           <li><a href="http://www.free-css.com/">SETTINGS</a></li>
@@ -95,8 +88,7 @@
       Email: info [at] templatemo.com<br />
     </div>
   </div>
-  <div id="footer">Copyright � Your Company Name - Designed by <a href="http://www.templatemo.com">TemplateMo.com</a></div>
+  <div id="footer">Copyright © Your Company Name - Designed by <a href="http://www.templatemo.com">TemplateMo.com</a></div>
 </div>
 </body>
->>>>>>> c081c146c6cce8af142ad98fc506e371790329e7
 </html>
