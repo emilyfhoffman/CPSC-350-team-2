@@ -10,7 +10,7 @@
   <div id="left_column">
     <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
-      <div id="header_slogan">Insert Catchy Slogan</div>
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
 	
@@ -23,15 +23,16 @@
 			<input type="submit" class="formbutton" value="Search" />
 		</p>
 	</form>
-	<h4>Select Search Parameter</h4>
+	<h4>Search By...</h4>
 	<form name ="form1" Method ="Post" action = "search.php">
-	<Input type = 'Radio' Name ='searchtype' value= 'name'>Search by recipe name
-	<Input type = 'Radio' Name ='searchtype' value= 'ingredient'>Search by Ingredient
+	<Select name = 'searchtype'>
+	<option>name</option>
+	<option>ingredient</option>
 	</form>
 	
     </div>
   </div>
-	<?php //include("header_right.html"); ?>
+	<?php include("header_right.php"); ?>
 </div>
 </body>
 </body>

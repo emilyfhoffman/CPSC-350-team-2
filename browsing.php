@@ -10,7 +10,7 @@
   <div id="left_column">
     <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
-      <div id="header_slogan">Insert Catchy Slogan</div>
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
 	
@@ -32,16 +32,17 @@
 	<input type = "submit" class = "formbutton" value="GO!"/>
 	
 	</form>
-	<table>
-	<tr><th>Recipe Name</th></tr>
+
 	<?php
 		include('db_connect.php');
 		$browse_by = $_POST['dish_type'];
 		if($browse_by != NULL){
+			echo "<table border = '1'>";
+			echo "<tr><th>Recipe Name</th></tr>";
 			if($browse_by == 'ALL'){
-				$query = "SELECT id,recipe_name FROM recipes;";
+				$query = "SELECT id,recipe_name FROM recipes order by recipe_name;";
 			}else{
-				$query = "SELECT id,recipe_name FROM recipes WHERE dish_type = '$browse_by';";
+				$query = "SELECT id,recipe_name FROM recipes WHERE dish_type = '$browse_by' order by recipe_name;";
 			}
 			$result = mysqli_query($db, $query);
 			while($row = mysqli_fetch_array($result)){

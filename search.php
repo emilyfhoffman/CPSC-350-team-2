@@ -10,23 +10,38 @@
   <div id="left_column">
     <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
-      <div id="header_slogan">Insert Catchy Slogan</div>
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
+	
+	<h4>Search</h4>
+		<form action="search.php" method="get" class="searchform">
+		<p>
+			<input type="text" id="searchq" name="searchText" />
+			<input type="submit" class="formbutton" value="Search" />
+		</p>
+	</form>
+	<h4>search by...</h4>
+	<form name ="form1" Method ="Post" action = "search.php">
+	<Select name = 'searchtype'>
+	<option>name</option>
+	<option>ingredient</option>
+	</form>
 	
 	<?php
 	   include("db_connect.php");
 		/*get the info from searchpage.html*/
-	   $selected_radio = $_POST['searchtype'];
+	   $search_type = $_POST['searchtype'];
 	   $searchText = $_GET['searchText'];
 	   /*prevent sql injection*/
 	   $sanitized_text = mysqli_real_escape_string($db, $searchText);
 	   /*determine what kind of search we're going to execute*/
-	   if ($selected_radio == 'name'){
-		$query = "SELECT * FROM recipes WHERE name LIKE '%$sanitized_text%'";
-	   }else if($selected_radio == 'ingredient'){
-		$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
-	   }
+	   if($search_type == NULL){
+		if ($search_type == 'name'){
+			$query = "SELECT * FROM recipes WHERE name LIKE '%$sanitized_text%'";
+		}else if($search_type == 'ingredient'){
+			$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
+		}
 	   
 	   echo "<table border='1'>";
 	   $result = mysqli_query($db, $query);
@@ -37,13 +52,14 @@
 	   	echo "<tr><td>";
 		echo "<a href=\"recipe.php?id=$id\">$name</a>";
 		echo "</td></tr>";
+		}
+		echo "</table>";
 	   }
-   	   echo "</table>";
   
 	?>
     </div>
   </div>
-	<?php include("header_right.html"); ?>
+	<?php include("header_right.php"); ?>
 </div>
 </body>
 </body>
