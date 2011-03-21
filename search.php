@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 <?php
   session_start();
 ?>
+=======
+>>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,6 +16,7 @@
   <div id="left_column">
     <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
+<<<<<<< HEAD
       <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
@@ -48,10 +52,31 @@
 			$query = "SELECT * FROM users WHERE email_address LIKE '%$sanitized_text%'";
 		}
 	   echo "$search_type: $sanitized_text";
+=======
+      <div id="header_slogan">Insert Catchy Slogan</div>
+    </div>
+    <div id="left_content">
+	
+	<?php
+	   include("db_connect.php");
+		/*get the info from searchpage.html*/
+	   $selected_radio = $_POST['searchtype'];
+	   $searchText = $_GET['searchText'];
+	   /*prevent sql injection*/
+	   $sanitized_text = mysqli_real_escape_string($db, $searchText);
+	   /*determine what kind of search we're going to execute*/
+	   if ($selected_radio == 'name'){
+		$query = "SELECT * FROM recipes WHERE name LIKE '%$sanitized_text%'";
+	   }else if($selected_radio == 'ingredient'){
+		$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
+	   }
+	   
+>>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
 	   echo "<table border='1'>";
 	   $result = mysqli_query($db, $query);
 	   /*display the results*/
 	   while($row = mysqli_fetch_array($result)){
+<<<<<<< HEAD
 	   	echo "<tr><td>";
 	   	if($search_type == 'email'){
 	   		$user = $row['email_address'];
@@ -65,11 +90,24 @@
 		}
 		echo "</table>";
 	   }
+=======
+	   	$name = $row['recipe_name'];
+		$id = $row['id'];
+	   	echo "<tr><td>";
+		echo "<a href=\"recipe.php?id=$id\">$name</a>";
+		echo "</td></tr>";
+	   }
+   	   echo "</table>";
+>>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
   
 	?>
     </div>
   </div>
+<<<<<<< HEAD
 	<?php include("header_right.php"); ?>
+=======
+	<?php include("header_right.html"); ?>
+>>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
 </div>
 </body>
 </body>
