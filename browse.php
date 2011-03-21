@@ -12,70 +12,26 @@
     <div id="header">
       <div id="header_slogan">Insert Catchy Slogan</div>
     </div>
-	
-	<!--at this point, i need to insert some check-boxes into the main page portion for browsing 
-		options:
-			ingredient
-			meal type
-			name(alphabetical)
-			-->
-	
     <div id="left_content">
-	<?php
-	   include("db_connect.php");
-	   
-	   /**/
-	   $query = "select id, recipe_name from recipes order by recipe_name;";
-	   echo "<table border='1'>";
-	   $result = mysqli_query($db, $query);
-	   while($row = mysqli_fetch_array($result)){
-	   	$name = $row['recipe_name'];
-		$id = $row['id'];
-	   	echo "<tr><td>";
-		echo "<a href=\"recipe.php?id=$id\">$name</a>";
-		echo "</td></tr>";
-	   }
-   	   echo "</table>";
-  
-	?>
+	
+	<!--included two new forms - Search form and Select Search Parameter radio buttons
+		this passes info along to search.php so that it can execute with proper params.-->
+	<h4>Browse Dishes!</h4>
+	<h4>Choose a dish type by which to browse...</h4>
+	<form name="browseform" method = "post" action = "browsing.php">
+	<Input type = 'Radio' Name ='searchtype' value= 'drinks'>Browse Drinks<br />
+	<Input type = 'Radio' Name ='searchtype' value= 'desserts'>Browse Desserts<br />
+	<Input type = 'Radio' Name ='searchtype' value= 'main dish'>Browse Main Dishes<br />
+	<Input type = 'Radio' Name ='searchtype' value= 'breakfast'>Browse Breakfasts<br />
+	<Input type = 'Radio' Name ='searchtype' value= 'appetizer'>Browse Appetizers<br />
+	<Input type = 'Radio' Name ='searchtype' value= 'side dish'>Browse Side Dishes<br />
+	<input type = "submit" class = "formbutton" value="GO!"/>
+	</form>
+	
     </div>
   </div>
-  <div id="right_column">
-    <div class="domain">http://www.dishInAFlash.com</div>
-    <div id="menucolumn">
-      <div class="menu_list">
-        <ul>
-          <li><a href="index.html">HOME PAGE</a></li>
-          <li><a href="addRecipe.php">ADD RECIPES</a></li>
-          <li><a href="search.php">SEARCH RECIPES</a></li>
-          <li><a href="http://www.free-css.com/">REVIEW RECIPES</a></li>
-          <li><a href="http://www.free-css.com/">ADD COMMENTS</a></li>
-          <li><a href="http://www.free-css.com/">SETTINGS</a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="right_content">
-      <h2>HIGHEST RATED RECIPES</h2>
-      <ul>
-        <li><a href="http://www.free-css.com/">Highest Rated Recipe</a></li>
-        <li><a href="http://www.free-css.com/">Second Highest</a></li>
-        <li><a href="http://www.free-css.com/">Third Highest</a></li>
-        <li><a href="http://www.free-css.com/">Fourth</a></li>
-        <li><a href="http://www.free-css.com/">Fifth</a></li>
-      </ul>
-      <h2>RECIPE OF THE WEEK </h2>
-      <p><img src="images/photo3.jpg" alt="" width="183" height="70" /></p>
-      <p><strong>Recipe Name (24-12-2020</strong>)<br />
-        Decsription for awesome recipe.</p>
-      <p><a target="_blank" href="http://validator.w3.org/check?uri=referer"><img height="31" alt="" src="http://www.w3.org/Icons/valid-xhtml10" width="88" vspace="8" border="0" /></a><a target="_blank" href="http://jigsaw.w3.org/css-validator/check/referer"><img alt="" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" vspace="8" border="0" /></a></p>
-    </div>
-    <div id="contact"> <strong>QUICK CONTACT</strong> <img src="images/contact.png" alt="" width="46" height="73" /><br />
-      Tel: 000-200-0022<br />
-      Fax: 001-100-0011<br />
-      Email: info [at] templatemo.com<br />
-    </div>
-  </div>
-  <div id="footer">Copyright © Your Company Name - Designed by <a href="http://www.templatemo.com">TemplateMo.com</a></div>
+	<?php include("header_right.html"); ?>
 </div>
+</body>
 </body>
 </html>

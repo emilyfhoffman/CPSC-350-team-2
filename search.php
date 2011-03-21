@@ -18,6 +18,9 @@
     <div id="header">
 <<<<<<< HEAD
       <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
+=======
+<<<<<<< HEAD
+      <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
 	
@@ -54,22 +57,38 @@
 	   echo "$search_type: $sanitized_text";
 =======
       <div id="header_slogan">Insert Catchy Slogan</div>
+>>>>>>> 6c1fdcfca9f3aa5873f9bea1940c3bce20ef123e
     </div>
     <div id="left_content">
+	
+	<h4>Search</h4>
+		<form action="search.php" method="get" class="searchform">
+		<p>
+			<input type="text" id="searchq" name="searchText" />
+			<input type="submit" class="formbutton" value="Search" />
+		</p>
+	</form>
+	<h4>search by...</h4>
+	<form name ="form1" Method ="Post" action = "search.php">
+	<Select name = 'searchtype'>
+	<option>name</option>
+	<option>ingredient</option>
+	</form>
 	
 	<?php
 	   include("db_connect.php");
 		/*get the info from searchpage.html*/
-	   $selected_radio = $_POST['searchtype'];
+	   $search_type = $_POST['searchtype'];
 	   $searchText = $_GET['searchText'];
 	   /*prevent sql injection*/
 	   $sanitized_text = mysqli_real_escape_string($db, $searchText);
 	   /*determine what kind of search we're going to execute*/
-	   if ($selected_radio == 'name'){
-		$query = "SELECT * FROM recipes WHERE name LIKE '%$sanitized_text%'";
-	   }else if($selected_radio == 'ingredient'){
-		$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
-	   }
+	   if($search_type == NULL){
+		if ($search_type == 'name'){
+			$query = "SELECT * FROM recipes WHERE name LIKE '%$sanitized_text%'";
+		}else if($search_type == 'ingredient'){
+			$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
+		}
 	   
 >>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
 	   echo "<table border='1'>";
@@ -96,9 +115,14 @@
 	   	echo "<tr><td>";
 		echo "<a href=\"recipe.php?id=$id\">$name</a>";
 		echo "</td></tr>";
+		}
+		echo "</table>";
 	   }
+<<<<<<< HEAD
+=======
    	   echo "</table>";
 >>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
+>>>>>>> 6c1fdcfca9f3aa5873f9bea1940c3bce20ef123e
   
 	?>
     </div>
@@ -106,8 +130,12 @@
 <<<<<<< HEAD
 	<?php include("header_right.php"); ?>
 =======
+<<<<<<< HEAD
+	<?php include("header_right.php"); ?>
+=======
 	<?php include("header_right.html"); ?>
 >>>>>>> 03015cbd56397c65183e536fad5f063d5cdcade3
+>>>>>>> 6c1fdcfca9f3aa5873f9bea1940c3bce20ef123e
 </div>
 </body>
 </body>
