@@ -18,6 +18,9 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `recipes`
 --
+CREATE DATABASE IF NOT EXISTS `recipes` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+GRANT ALL PRIVILEGES ON recipes.* to 'assist'@'localhost' identified by 'assist';
+USE `recipes`;
 
 -- --------------------------------------------------------
 

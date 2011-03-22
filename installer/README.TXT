@@ -1,3 +1,3 @@
 To install Dish In A Flash, double click on RecipeInstall.jar.  A prompt will appear with three text boxes.  In the first box, type your mySQL username.  In the second box, type the absolute path to the mySQL executable.  If mySQL is already in your PATH variable, you may leave this as a '*'.  In the third box, type the absolute path to the location in which you want Dish In A Flash to be installed (i.e. ".../htdocs/recipe/"), or if the jar file is already in that working directory, you may leave it as a '*'.  Finish this up by clicking the OK button, then OK the following prompt.
 
-A file called "commands.sh" should now appear in the same directory as RecipeInstall.jar.  Run this using your shell, and you should be done!
+A file called "commands.sh" should now appear in the same directory as RecipeInstall.jar.  Run this using your shell (you may need to run it as superuser), and you should be done!
