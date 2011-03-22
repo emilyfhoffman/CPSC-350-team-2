@@ -7,7 +7,7 @@
 </head>
 <body>
   <div id="right_column">
-  <?
+  <?php
   	if (isset($_SESSION['name'])) {
   		echo "<div class=\"domain\"><a href=\"logout.php\">Log Out</a></div>";
   	} else {
