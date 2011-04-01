@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2011 at 01:18 PM
+-- Generation Time: Apr 01, 2011 at 01:57 PM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.1
 
@@ -79,10 +79,10 @@ CREATE TABLE IF NOT EXISTS `ratings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recipe`
+-- Table structure for table `recipes`
 --
 
-CREATE TABLE IF NOT EXISTS `recipe` (
+CREATE TABLE IF NOT EXISTS `recipes` (
   `recipe_id` int(11) NOT NULL AUTO_INCREMENT,
   `email_address` varchar(50) NOT NULL,
   `recipe_name` varchar(50) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `recipe`
+-- Dumping data for table `recipes`
 --
 
 
@@ -129,3 +129,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`email_address`, `password`) VALUES
+('lol', '403926033d001b5279df37cbbe5287b7c7c267fa');
