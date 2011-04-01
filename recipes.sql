@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2011 at 01:04 PM
+-- Generation Time: Apr 01, 2011 at 01:18 PM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.1
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `recipe`
+-- Database: `recipes`
 --
 CREATE DATABASE IF NOT EXISTS 'recipe';
 GRANT ALL PRIVILEGES ON recipe.* to 'assist'@'localhost' identified by 'assist';
