@@ -43,7 +43,8 @@
 		if ($search_type == 'name'){
 			$query = "SELECT * FROM recipes WHERE recipe_name LIKE '%$sanitized_text%'";
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT * FROM ingredients WHERE name LIKE '%$sanitized_text%'"; //need to change to include joins that displays the recipe name that contains that ingrident
+			$query = "SELECT recipes.recipe_name FROM ingredients NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient 
+			WHERE ingredients.name LIKE '%$sanitized_text%'"; //need to change to include joins that displays the recipe name that contains that ingrident
 		}else if($search_type == 'email'){
 			$query = "SELECT * FROM users WHERE email_address LIKE '%$sanitized_text%'";
 		}
