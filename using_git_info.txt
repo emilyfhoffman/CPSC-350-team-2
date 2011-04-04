@@ -1,0 +1,9 @@
+1. To initialize:(if already initialize the repository in that folder skip to the NEXT STEP)
+		git init
+		git remote add origin git@github.com:emilyfhoffman/CPSC-350-team-2.git
+2. move files that you have changed to a seperate folder than the one that contains the git repository
+3. git pull origin master
+4. move the files back into the folder that contains the git repository
+5. git add (* adds all the files or the file(s) name)
+6. git commit -m "YOUR MESSAGE HERE"
+7. git push origin master
