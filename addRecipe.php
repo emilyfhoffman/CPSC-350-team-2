@@ -38,8 +38,6 @@
 			<option>main dish</option>
 			<option>side dish</option>
 			<option>dessert</option>
-		<!--<option value = "breakfast">Breads</option>-->
-		<!--<option value = "">Sauces/Mixes</option>-->
 			<option>drink</option>
 			</select></td></tr>
 			

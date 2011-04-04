@@ -17,14 +17,11 @@
     </div>
     <div id="left_content">
       <h1>Login Complete<br /><br/>
-        <span>Thank you for logging in</span></h1> <br />
+        <span>Thank you for logging in</span></h1> 
 			<?php
   				include "db_connect.php";
   				$name = $_POST['username'];
   				$pw = $_POST['pw'];
-
-				echo "$name: $pw";
-
    				$query = "select * from users WHERE email_address = '$name' AND password = sha('$pw');";
    				$result = mysqli_query($db, $query);
    				if ($row = mysqli_fetch_array($result)) {

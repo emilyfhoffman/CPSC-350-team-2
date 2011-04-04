@@ -17,7 +17,7 @@
     </div>
     <div id="left_content">
       <h1>And You're Done!<br /><br/>
-        <span>Thank you for creating an account with DIAF</span></h1> <br />
+        <span>Thank you for creating an account with Dish in a Flash</span></h1> <br />
 			<?php
   				include "db_connect.php";
   				$name = mysqli_real_escape_string($db, $_POST['username']);
@@ -27,7 +27,7 @@
    				$result = mysqli_query($db, $query);
    
    				echo "Thanks, $name, for creating an account";
-   				echo "<br /><a href=\"index.html\">Continue back to the Home Page</a>";
+   				echo "<br /><a href=\"index.php\">Continue back to the Home Page</a>";
 			?>
     </div>
   </div>
