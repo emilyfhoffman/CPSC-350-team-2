@@ -43,22 +43,28 @@
 		if ($search_type == 'name'){
 			$query = "SELECT * FROM recipes WHERE recipe_name LIKE '%$sanitized_text%'";
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT * FROM recipes WHERE ingredients LIKE '%$sanitized_text%'";
+			$query = "SELECT * FROM ingredients WHERE name LIKE '%$sanitized_text%'"; //need to change to include joins that displays the recipe name that contains that ingrident
 		}else if($search_type == 'email'){
 			$query = "SELECT * FROM users WHERE email_address LIKE '%$sanitized_text%'";
 		}
 	   echo "<table border='1'>";
 	   $result = mysqli_query($db, $query);
-	   /*display the results*/
+	    /*display the results*/
 	   while($row = mysqli_fetch_array($result)){
 	   	echo "<tr><td>";
 	   	if($search_type == 'email'){
 	   		$user = $row['email_address'];
 			echo "<a href=\"userPage.php?id=$user\">$user</a>";
-	   	}else{
+	   	}else if($search_type == 'name'){
 	   		$name = $row['recipe_name'];
-			$id = $row['id'];
+			$id = $row['recipe_id'];
 			echo "<a href=\"recipe.php?id=$id\">$name</a>";
+			
+		// need to change for display
+		}else{
+			$name = $row['name'];
+			$id = $row['ingredient_id'];
+			echo();
 		}
 		echo "</td></tr>";
 		}
