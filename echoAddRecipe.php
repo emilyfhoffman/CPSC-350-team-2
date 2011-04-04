@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
   session_start();
 ?>
@@ -12,6 +11,7 @@
 <body>
 
 <?php
+   //include('header.html');
    include('db_connect.php');
    $name = $_POST['recipe_name'];
    $dish_type = $_POST['dish_type'];
@@ -44,17 +44,26 @@
 				<?php echo $instructions; ?> 
 		<!--<tr><td>Results of Query</td><td>-->
 				<?php 
-					$formatted_ingredients = str_replace("\n","<br>",$ingredients);
+					$id_array = array();
+					$ingredients_array = explode("\n", $ingredients);
+					$index = 0;
+					foreach($ingredients_array as $ingredient){
+						if(!(mysql_num_rows(mysqli_query("SELECT name FROM ingredients WHERE name = '$ingredient")))){
+							$query = "INSERT INTO ingredients (name) VALUE ('$ingredient');"
+							mysqli_query($db, $query);
+						}
+						$query = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient'";
+						$row = mysqli_fetch_array(mysqli_query($db, $query));
+						$id_array[$index] = $row['ingredient_id'];
+						$index = $index + 1;
+					}
+					
+					//All ingredients are in the Ingredients table, and $id_array now contains all of their id's
+
 					$formatted_instructions = str_replace("\n","<br>",$instructions);
 					$user = $_SESSION['name'];
 					$query = "INSERT INTO recipes (email_address, recipe_name, ingredients, instructions, dish_type) VALUES ('$user','$name','$formatted_ingredients','$formatted_instructions','$dish_type');";
 					$results = mysqli_query($db,$query);
-					$row = mysqli_fetch_array($result);
-					$id = $row['id'];
-
-					$target ="recipe_images/$id.jpg";
-     
-					move_uploaded_file($_FILES['image']['tmp_name'], $target);
 				?>
 		</table>
       </form>
