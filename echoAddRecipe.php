@@ -31,7 +31,6 @@
         
       <p>Thank you for adding your recipe so everyone can view and enjoy!</p>
       
-      <form method = "post" action = "echoAddRecipe.php">
       	<table>
       	
       	<tr><td>Recipe Name</td><td>
@@ -48,8 +47,8 @@
 					$ingredients_array = explode("\n", $ingredients);
 					$index = 0;
 					foreach($ingredients_array as $ingredient){
-						if(!(mysql_num_rows(mysqli_query("SELECT name FROM ingredients WHERE name = '$ingredient")))){
-							$query = "INSERT INTO ingredients (name) VALUE ('$ingredient');"
+						if(!mysqli_fetch_array(mysqli_query($db, "SELECT name FROM ingredients WHERE name = '$ingredient';"))){
+							$query = "INSERT INTO ingredients (name) VALUES ('$ingredient');";
 							mysqli_query($db, $query);
 						}
 						$query = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient'";
@@ -62,11 +61,19 @@
 
 					$formatted_instructions = str_replace("\n","<br>",$instructions);
 					$user = $_SESSION['name'];
-					$query = "INSERT INTO recipes (email_address, recipe_name, ingredients, instructions, dish_type) VALUES ('$user','$name','$formatted_ingredients','$formatted_instructions','$dish_type');";
+					$query = "INSERT INTO recipes (email_address, recipe_name, instructions, dish_type) VALUES ('$user','$name','$formatted_instructions','$dish_type');";
 					$results = mysqli_query($db,$query);
+
+					$query = "SELECT * FROM recipes WHERE email_address = '$user' AND recipe_name = '$name';";
+					$row = mysqli_fetch_array(mysqli_query($db, $query));
+					$recipe_id = $row['recipe_id'];
+
+					foreach($id_array as $ingredient_id){
+						$query = "INSERT INTO recipe_to_ingredient (recipe_id, ingredient_id) VALUES ('$recipe_id', '$ingredient_id');";
+						mysqli_query($db, $query);
+					}
 				?>
 		</table>
-      </form>
     </div>
   </div>
 	<?php include("header_right.php"); ?>
