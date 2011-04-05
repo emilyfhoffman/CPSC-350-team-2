@@ -20,11 +20,16 @@
 	  include("db_connect.php");
 
 	   $id = $_GET['id'];
-	   $query = "select * from recipes where id = '$id';";
+	   $query = "select * from recipes where recipe_id = $id;";
 	   $result = mysqli_query($db, $query);
+	   $query = "select i.name from ingredients i natural join recipes r natural join recipe_to_ingredient ri where r.recipe_id = $id;";
+	   $result2 = mysqli_query($db, $query);
+	   $ingredients = "";
+	   while($row = mysqli_fetch_array($result2)){
+	   		$ingredients .= $row['name'].", ";
+	   }
 	   $row = mysqli_fetch_array($result);
 	   	$name = $row['recipe_name'];
-		$ingredients = $row['ingredients'];
 		$instructions = $row['instructions'];
 		$dish_type = $row['dist_type'];
 	   	echo "<h1>$name</h1> <br />";
