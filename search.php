@@ -41,13 +41,13 @@
 	   /*determine what kind of search we're going to execute*/
 	   if($search_type != NULL){
 		if ($search_type == 'name'){
-			$query = "SELECT * FROM recipes rec INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
-			WHERE recipe_name LIKE '%$sanitized_text%' ORDER BY rat.rating";
+			$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT recipes.recipe_name, ISNULL(ratings.rating, 0) FROM ingredients 
+			$query = "SELECT recipes.recipe_name, ISNULL(ratings.rating, 0), recipes.recipe_id FROM ingredients 
 			NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
 			NATURAL JOIN ratings WHERE ingredients.name LIKE '%$sanitized_text%' 
-			ORDER BY ratings.rating"; 
+			ORDER BY AVG(ratings.rating)"; 
 		}else if($search_type == 'email'){
 			$query = "SELECT u.email_address, average(r.rating) 
 			FROM users u INNER JOIN ratings r WHERE email_address LIKE '%$sanitized_text%' GROUP BY u.email_address";
@@ -56,20 +56,20 @@
 	   $result = mysqli_query($db, $query);
 	    /*display the results*/
 	   while($row = mysqli_fetch_array($result)){
-	   	echo "<tr><td>";
+	   echo "<tr><td>";
 	   	if($search_type == 'email'){
 	   		$user = $row['email_address'];
 			echo "<a href=\"userPage.php?id=$user\">$user</a>";
 	   	}else if($search_type == 'name'){
 	   		$name = $row['recipe_name'];
 			$id = $row['recipe_id'];
-			echo "<a href=\"recipe.php?id=$id\">$name</a>";
+			$avg = $row['rating'];
+			echo "<a href=\"recipe.php?id=$id\">$name</a></td><td>$avg";
 			
 		// need to change for display
 		}else{
 			$name = $row['name'];
 			$id = $row['ingredient_id'];
-			echo();
 		}
 		echo "</td></tr>";
 		}
