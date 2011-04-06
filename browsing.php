@@ -40,9 +40,9 @@
 			echo "<table border = '1'>";
 			echo "<tr><th>Recipe Name</th></tr>";
 			if($browse_by == 'ALL'){
-				$query = "SELECT id,recipe_name FROM recipes order by recipe_name;";
+				$query = "SELECT recipe_id,recipe_name FROM recipes order by recipe_name;";
 			}else{
-				$query = "SELECT id,recipe_name FROM recipes WHERE dish_type = '$browse_by' order by recipe_name;";
+				$query = "SELECT recipe_id,recipe_name FROM recipes WHERE dish_type = '$browse_by' order by recipe_name;";
 			}
 			$result = mysqli_query($db, $query);
 			while($row = mysqli_fetch_array($result)){
