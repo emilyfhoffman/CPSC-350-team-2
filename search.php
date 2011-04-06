@@ -23,12 +23,24 @@
 			<input type="text" id="searchText" name="searchText" />
 			<input type="submit" class="formbutton" value="Search" />
 		</p>
-	<Select id="searchtype" name = 'searchtype'>
+	<select id="searchtype" name = 'searchtype'>
 	<option value = 'name'>Recipe Name</option>
 	<option value = 'ingredient'>Ingredient</option>
 
 	<option value = 'email'>User Email</option>
-	</Select>
+	</select>
+	
+	<select name = 'dish_type'>
+	<option value = 'ALL'>ALL</option>
+	<option value = 'drink'>drink</option>
+	<option value = 'dessert'>dessert</option>
+	<option value = 'main dish'>main dish</option>
+	<option value = 'breakfast'>breakfast</option>
+	<option value = 'appetizer'>appetizer</option>
+	<option value = 'side dish'>side dish</option>
+	<option value = 'other'>Other</option>
+	</select>
+	
 	</form>
 	
 	<?php
@@ -40,14 +52,27 @@
 	   $sanitized_text = mysqli_real_escape_string($db, $searchText);
 	   /*determine what kind of search we're going to execute*/
 	   if($search_type != NULL){
+	   $type = $_POST['dish_type'];
 		if ($search_type == 'name'){
-			$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
-			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
+			if($type = 'ALL'){
+				$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+				WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
+			}else{
+				$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+				WHERE rec.recipe_name LIKE '%$sanitized_text%' AND rec.dish_type = '$type' GROUP BY rec.recipe_id ORDER BY rating DESC";
+			}
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
-			NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
-			LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
-			GROUP BY recipes.recipe_id ORDER BY rating"; 
+			if($type = 'ALL'){
+				$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
+				NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
+				LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
+				GROUP BY recipes.recipe_id ORDER BY rating";
+			}else{
+				$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
+				NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
+				LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
+				AND recipes.dish_type = '$type' GROUP BY recipes.recipe_id ORDER BY rating";
+			}
 		}else if($search_type == 'email'){
 			$query = "SELECT email_address
 			FROM users WHERE email_address LIKE '%$sanitized_text%'";
@@ -79,22 +104,6 @@
 	   }
   
 	?>
-	<h4>Browse Dishes!</h4>
-	<h4>Choose a dish type by which to browse...</h4>
-	<form name="browseform" method = "post" action = "browsing.php">
-	
-	<Select name = 'dish_type'>
-	<option>drink</option>
-	<option>dessert</option>
-	<option>main dish</option>
-	<option>breakfast</option>
-	<option>appetizer</option>
-	<option>side dish</option>
-	<option>Other</option>
-	<option>ALL</option>
-	<input type = "submit" class = "formbutton" value="GO!"/>
-	
-	</form>
 
 	<?php
 		include('db_connect.php');
