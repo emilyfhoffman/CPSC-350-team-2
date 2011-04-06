@@ -20,7 +20,6 @@
           <li><a href="index.php">HOME PAGE</a></li>
           <li><a href="addRecipe.php">ADD RECIPES</a></li>
           <li><a href="search.php">SEARCH RECIPES</a></li>
-		<li><a href="browsing.php">BROWSE RECIPES</a></li>
         </ul>
       </div>
     </div>
