@@ -21,19 +21,39 @@
           <li><a href="addRecipe.php">ADD RECIPES</a></li>
           <li><a href="search.php">SEARCH RECIPES</a></li>
 		<li><a href="browsing.php">BROWSE RECIPES</a></li>
-          <!--<li><a href="http://www.free-css.com/">ADD COMMENTS</a></li>-->
         </ul>
       </div>
     </div>
     <div id="right_content">
       <h2>HIGHEST RATED RECIPES</h2>
-      <ul>
-        <li><a href="http://www.free-css.com/">Highest Rated Recipe</a></li>
+      <ol>
+      	<?php
+        	$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec 
+			INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC LIMIT 5";
+			
+			$result = mysqli_query($db, $query);
+	
+			while($row = mysqli_fetch_array($result)){
+	   			echo "<li>";
+	   			$name = $row['recipe_name'];
+				$id = $row['recipe_id'];
+				$avg = $row['rating'];
+				echo "<a href=\"recipe.php?id=$id\">$name</a></td><td>$avg";
+				
+				echo "</li>";
+			}
+			
+			echo "</table>";
+      
+    	?>
+    	
+        <!--<li><a href="http://www.free-css.com/">Highest Rated Recipe</a></li>
         <li><a href="http://www.free-css.com/">Second Highest</a></li>
         <li><a href="http://www.free-css.com/">Third Highest</a></li>
         <li><a href="http://www.free-css.com/">Fourth</a></li>
-        <li><a href="http://www.free-css.com/">Fifth</a></li>
-      </ul>
+        <li><a href="http://www.free-css.com/">Fifth</a></li>-->
+      </ol>
       <h2>RECIPE OF THE WEEK </h2>
       <p><img src="images/photo3.jpg" alt="" width="183" height="70" /></p>
       <p><strong>Recipe Name (24-12-2020</strong>)<br />
