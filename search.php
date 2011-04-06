@@ -41,7 +41,7 @@
 	   /*determine what kind of search we're going to execute*/
 	   if($search_type != NULL){
 		if ($search_type == 'name'){
-			$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+			$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
 			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
 		}else if($search_type == 'ingredient'){
 			$query = "SELECT recipes.recipe_name, ISNULL(ratings.rating, 0), recipes.recipe_id FROM ingredients 
