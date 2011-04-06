@@ -41,12 +41,16 @@
 	   /*determine what kind of search we're going to execute*/
 	   if($search_type != NULL){
 		if ($search_type == 'name'){
-			$query = "SELECT * FROM recipes WHERE recipe_name LIKE '%$sanitized_text%'";
+			$query = "SELECT * FROM recipes rec INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+			WHERE recipe_name LIKE '%$sanitized_text%' ORDER BY rat.rating";
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT recipes.recipe_name FROM ingredients NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient 
-			WHERE ingredients.name LIKE '%$sanitized_text%'"; //need to change to include joins that displays the recipe name that contains that ingrident
+			$query = "SELECT recipes.recipe_name, ISNULL(ratings.rating, 0) FROM ingredients 
+			NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
+			NATURAL JOIN ratings WHERE ingredients.name LIKE '%$sanitized_text%' 
+			ORDER BY ratings.rating"; 
 		}else if($search_type == 'email'){
-			$query = "SELECT * FROM users WHERE email_address LIKE '%$sanitized_text%'";
+			$query = "SELECT u.email_address, average(r.rating) 
+			FROM users u INNER JOIN ratings r WHERE email_address LIKE '%$sanitized_text%' GROUP BY u.email_address";
 		}
 	   echo "<table border='1'>";
 	   $result = mysqli_query($db, $query);
