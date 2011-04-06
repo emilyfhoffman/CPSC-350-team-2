@@ -68,8 +68,6 @@
 		<tr><td>Submit</td><td><input type="submit" value="Submit" />
 		    
 		</table>
-
-		<input type="file" id="image" name="image"/><br/>
       </form>
     </div>
   </div>

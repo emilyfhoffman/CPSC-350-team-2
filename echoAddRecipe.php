@@ -66,7 +66,6 @@
 
 					$query = "SELECT * FROM recipes WHERE email_address = '$user' AND recipe_name = '$name';";
 					$row = mysqli_fetch_array(mysqli_query($db, $query));
-					$recipe_id = $row['recipe_id'];
 
 					foreach($id_array as $ingredient_id){
 						$query = "INSERT INTO recipe_to_ingredient (recipe_id, ingredient_id) VALUES ('$recipe_id', '$ingredient_id');";
