@@ -54,7 +54,8 @@
 	   if($search_type != NULL){
 	   $type = $_POST['dish_type'];
 		if ($search_type == 'name'){
-			if($type = 'ALL'){
+			echo $type;
+			if($type == 'ALL'){
 				$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
 				WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
 			}else{
@@ -62,16 +63,17 @@
 				WHERE rec.recipe_name LIKE '%$sanitized_text%' AND rec.dish_type = '$type' GROUP BY rec.recipe_id ORDER BY rating DESC";
 			}
 		}else if($search_type == 'ingredient'){
-			if($type = 'ALL'){
+			echo $type;
+			if($type == 'ALL'){
 				$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
 				NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
 				LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
-				GROUP BY recipes.recipe_id ORDER BY rating";
+				GROUP BY recipes.recipe_id ORDER BY rating DESC";
 			}else{
 				$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
 				NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
 				LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
-				AND recipes.dish_type = '$type' GROUP BY recipes.recipe_id ORDER BY rating";
+				AND recipes.dish_type = '$type' GROUP BY recipes.recipe_id ORDER BY rating DESC";
 			}
 		}else if($search_type == 'email'){
 			$query = "SELECT email_address
@@ -104,27 +106,6 @@
 	   }
   
 	?>
-
-	<?php
-		include('db_connect.php');
-		$browse_by = $_POST['dish_type'];
-		if($browse_by != NULL){
-			echo "<table border = '1'>";
-			echo "<tr><th>Recipe Name</th></tr>";
-			if($browse_by == 'ALL'){
-				$query = "SELECT id,recipe_name FROM recipes order by recipe_name;";
-			}else{
-				$query = "SELECT id,recipe_name FROM recipes WHERE dish_type = '$browse_by' order by recipe_name;";
-			}
-			$result = mysqli_query($db, $query);
-			while($row = mysqli_fetch_array($result)){
-				$name = $row['recipe_name'];
-				$id = $row['id'];
-				echo "<tr><td><a href=\"recipe.php?id=$id\">$name</a></td></tr>";
-			}
-		}
-	?>
-	
 	</table>
     </div>
   </div>
