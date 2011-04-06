@@ -44,13 +44,13 @@
 			$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
 			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC";
 		}else if($search_type == 'ingredient'){
-			$query = "SELECT recipes.recipe_name, ISNULL(ratings.rating, 0), recipes.recipe_id FROM ingredients 
+			$query = "SELECT recipes.recipe_name, ROUND(AVG(rat.rating),1) as rating , recipes.recipe_id FROM ingredients 
 			NATURAL JOIN recipes NATURAL JOIN recipe_to_ingredient
-			NATURAL JOIN ratings WHERE ingredients.name LIKE '%$sanitized_text%' 
-			ORDER BY AVG(ratings.rating)"; 
+			LEFT JOIN ratings rat ON recipes.recipe_id=rat.recipe_id WHERE ingredients.name LIKE '%$sanitized_text%' 
+			GROUP BY recipes.recipe_id ORDER BY rating"; 
 		}else if($search_type == 'email'){
-			$query = "SELECT u.email_address, average(r.rating) 
-			FROM users u INNER JOIN ratings r WHERE email_address LIKE '%$sanitized_text%' GROUP BY u.email_address";
+			$query = "SELECT email_address
+			FROM users WHERE email_address LIKE '%$sanitized_text%'";
 		}
 	   echo "<table border='1'>";
 	   $result = mysqli_query($db, $query);
@@ -68,8 +68,10 @@
 			
 		// need to change for display
 		}else{
-			$name = $row['name'];
-			$id = $row['ingredient_id'];
+			$name = $row['recipe_name'];
+			$id = $row['recipe_id'];
+			$avg = $row['rating'];
+			echo "<a href=\"recipe.php?id=$id\">$name</a></td><td>$avg";
 		}
 		echo "</td></tr>";
 		}

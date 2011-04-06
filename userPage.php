@@ -24,7 +24,7 @@
 	    $result = mysqli_query($db, $query);
 	    $row = mysqli_fetch_array($result);
 	   	$address = $row['email_address'];
-	   	echo "<h1>$address</h1> </br>";
+	   	echo "<h1>$address</h1> <br/>";
 
 	    $query2 = "select * from recipes r inner join users u on r.email_address = u.email_address where u.email_address = '$id';";
 	    $result2 = mysqli_query($db, $query2);
