@@ -28,8 +28,9 @@
       <h2>HIGHEST RATED RECIPES</h2>
       <ol>
       	<?php
+      		include("db_connect.php");
         	$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec 
-			INNER JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
+			LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
 			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC LIMIT 5";
 			
 			$result = mysqli_query($db, $query);
