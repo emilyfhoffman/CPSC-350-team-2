@@ -19,6 +19,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Database: `recipes`
 --
 
+DROP DATABASE IF EXISTS recipes;
+CREATE DATABASE IF NOT EXISTS recipes;
+GRANT ALL PRIVILEGES ON recipes.* to 'assist'@'localhost' identified by 'assist';
+USE recipes;
 -- --------------------------------------------------------
 
 --
