@@ -85,17 +85,23 @@
 			$email = $row['email_address'];
 			echo "Comment from ".$email." on ".$date.":<br/>".$comment."<br/><br/>";
 		}
-		echo "<form method = 'post' action = 'recipe.php?id=$id'>
+		?>
+		<form method = 'post' action = 'recipe.php?id=$id'>
 			<table>
-	<tr><td>E-mail</td><td>
-			<input type='text' id='Email' name='Email' />
+			<tr><td>E-mail</td><td>
+			<input type='text' id='Email' name='Email' value ="Enter your email address"/>
 		</td>
 	<tr><td>
 
-	<tr><td>Comment</td><td>
-			<textarea name='comment' id='comment' cols='40' rows='5' 
-			value='Enter your comments here, separated by commas...'/>
-			</textarea><br>
+		<tr><td>Comment</td><td>
+
+			<textarea name="Comment" id="Comment" cols="40" rows="5" 
+			onFocus="if(this.innerText == 'Enter your Comment here...') 
+			{this.innerText = '';}" 
+			onBlur="if (this.innerText == '') 
+			{this.innerText = 'Enter your Comment here...';}" >Enter your Comment here...</textarea><br>
+
+		</td>
 		</td>
 	</table>
 	<br/>
@@ -110,7 +116,7 @@
 	
 	</form>";
 			
-?> 
+ 
 	
     </div>
   </div>

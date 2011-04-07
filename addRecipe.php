@@ -28,7 +28,7 @@
       <form method = "post" action = "echoAddRecipe.php">
       	<table>
       	
-		<tr><td>Recipe Name</td><td><input type="text" name="recipe_name" id="name" size="20"/>
+		<tr><td>Recipe Name</td><td><input type="text" name="recipe_name" id="name" size="20"value="Name of recipe"/>
 		    </td></tr>
 		    
 		<tr><td>Cuisine</td><td>
@@ -44,25 +44,21 @@
 		<tr><td>Ingredients</td><td>
 
 			<textarea name="ingredients" id="ingredients" cols="40" rows="5" 
-			value="Enter your ingredients here, separated by commas..." 
-			onFocus="if(this.value == 'Enter your ingredients here, separated by commas...') 
-			{this.value = '';}" 
-			onBlur="if (this.value == '') 
-			{this.value = 'Enter your ingredients here, separated by commas...';}" />
-			</textarea><br>
+			onFocus="if(this.innerText == 'Enter your ingredients here, separated by commas...') 
+			{this.innerText = '';}" 
+			onBlur="if (this.innerText == '') 
+			{this.innerText = 'Enter your ingredients here, separated by commas...';}" >Enter your ingredients here, separated by commas...</textarea><br>
 
 		</td>
 
 		<tr><td>Instructions</td><td>
-		
+
 			<textarea name="instructions" id="instructions" cols="40" rows="5" 
-			value="Enter your ingredients here, separated by commas..." 
-			onFocus="if(this.value == 'Enter your istructions here...') 
-			{this.value = '';}" 
-			onBlur="if (this.value == '') 
-			{this.value = 'Enter your istructions here...';}" />
-			</textarea><br>
-		
+			onFocus="if(this.innerText == 'Enter your instructions here...') 
+			{this.innerText = '';}" 
+			onBlur="if (this.innerText == '') 
+			{this.innerText = 'Enter your instructions here...';}" >Enter your instructions here...</textarea><br>
+
 		</td>
 		
 		<tr><td>Submit</td><td><input type="submit" value="Submit" />
