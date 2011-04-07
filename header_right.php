@@ -39,7 +39,7 @@
 	   			$name = $row['recipe_name'];
 				$id = $row['recipe_id'];
 				$avg = $row['rating'];
-				echo "<a href=\"recipe.php?id=$id\">$name</a></td><td>$avg";
+				echo "<a href=\"recipe.php?id=$id\">$name</a>  $avg";
 				
 				echo "</li>";
 			}

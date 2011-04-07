@@ -63,7 +63,7 @@
 		
 		//display the average rating
 		if(mysqli_num_rows($result) > 0){
-			$query = "SELECT AVG(rating) avg FROM ratings WHERE recipe_id = '$id';";
+			$query = "SELECT ROUND(AVG(rating),1) avg FROM ratings WHERE recipe_id = '$id';";
 			$result = mysqli_query($db, $query);
 			$row = mysqli_fetch_array($result);
 			$avg = $row['avg'];
