@@ -7,6 +7,7 @@
 <title>Dish in a Flash</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="container">
@@ -17,7 +18,13 @@
     </div>
     <div id="left_content">
 
-
+<ul class='star-rating'>
+  <li><a href='#' title='Rate this 1 star out of 5' class='one-star'>1</a></li>
+  <li><a href='#' title='Rate this 2 stars out of 5' class='two-stars'>2</a></li>
+  <li><a href='#' title='Rate this 3 stars out of 5' class='three-stars'>3</a></li>
+  <li><a href='#' title='Rate this 4 stars out of 5' class='four-stars'>4</a></li>
+  <li><a href='#' title='Rate this 5 stars out of 5' class='five-stars'>5</a></li>
+</ul>
 	<?php
 	  include("db_connect.php");
 
@@ -28,12 +35,13 @@
 	   $result2 = mysqli_query($db, $query);
 	   $ingredients = "";
 	   while($row = mysqli_fetch_array($result2)){
-	   		$ingredients .= $row['name']."<br/>";
+	   		$ingredients .= $row['name'].", ";
 	   }
 	   $row = mysqli_fetch_array($result);
 	   	$name = $row['recipe_name'];
 		$instructions = $row['instructions'];
 		$dish_type = $row['dist_type'];
+		
 	   	echo "<h1>$name</h1> <br />";
 		echo "$dish_type <br />";
 		echo "$ingredients <br />";
@@ -48,37 +56,68 @@
 			$query = "INSERT INTO comments VALUES ('','$email','$id','$formattedComment','$date');";
 			$result = mysqli_query($db,$query);
 		}
-	
 		
-		echo "<strong>Comments</strong><br/>";
+		//figure out if we need to insert a new rating.
+		if (isset($_POST['rating'])){
+			$rating = $_POST['rating'];
+			$query = "INSERT INTO ratings VALUES ('$email','$id','$rating');";
+			$result = mysqli_query($db, $query);
+		}
+		
+		$query = "SELECT recipe_id FROM ratings WHERE recipe_id = '$id';";
+		$result = mysqli_query($db, $query);
+		echo "<strong>Average Rating:</strong>";
+		
+		//display the average rating
+		if(mysqli_num_rows($result) > 0){
+			$query = "SELECT AVG(rating) avg FROM ratings WHERE recipe_id = '$id';";
+			$result = mysqli_query($db, $query);
+			$row = mysqli_fetch_array($result);
+			$avg = $row['avg'];
+			echo "  $avg";
+		}else{
+			echo "  not yet rated!"; 
+		}
+		echo "<br/><br/>";
+			
+		
+		
+		echo "<strong>Comments</strong><br/><br/>";
 		$query = "SELECT * FROM comments WHERE recipe_id = '$id';";
 		$result = mysqli_query($db,$query);
+		$current_user = '';
 		while($row = mysqli_fetch_array($result)){
 			$date = $row['date'];
 			$comment = $row['comment'];
 			$email = $row['email_address'];
 			echo "Comment from ".$email." on ".$date.":<br/>".$comment."<br/><br/>";
 		}
-		echo "<form method = 'post' action = 'recipe.php?id=$id'>";
-?>
-	<table>
+		echo "<form method = 'post' action = 'recipe.php?id=$id'>
+			<table>
 	<tr><td>E-mail</td><td>
-			<input type="text" id="Email" name="Email" />
+			<input type='text' id='Email' name='Email' />
 		</td>
 	<tr><td>
 
 	<tr><td>Comment</td><td>
-			<textarea name="comment" id="comment" cols="40" rows="5" 
-			value="Enter your comments here, separated by commas..." 
-			onFocus="if(this.value == 'Enter your instructions here...') 
-			{this.value = '';}" 
-			onBlur="if (this.value == '') 
-			{this.value = 'Enter your istructions here...';}" />
+			<textarea name='comment' id='comment' cols='40' rows='5' 
+			value='Enter your comments here, separated by commas...'/>
 			</textarea><br>
 		</td>
 	</table>
-	<tr><td><input type="submit" value="Submit" /></td></tr>
-	</form>
+	<br/>
+	<tr><td>Rating</td></tr>
+	<tr><td><input type='radio' name = 'rating' value = '1'>1
+			<input type='radio' name = 'rating' value = '2'>2
+			<input type='radio' name = 'rating' value = '3'>3
+			<input type='radio' name = 'rating' value = '4'>4
+			<input type='radio' name = 'rating' value = '5'>5</td></tr><br/>
+	<br/>
+	<tr><td><input type='submit' value='Submit' /></td></tr>
+	
+	</form>";
+			
+?> 
 	
     </div>
   </div>
