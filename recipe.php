@@ -28,7 +28,7 @@
 	   $result2 = mysqli_query($db, $query);
 	   $ingredients = "";
 	   while($row = mysqli_fetch_array($result2)){
-	   		$ingredients .= $row['name'].", ";
+	   		$ingredients .= $row['name']."<br/>";
 	   }
 	   $row = mysqli_fetch_array($result);
 	   	$name = $row['recipe_name'];
