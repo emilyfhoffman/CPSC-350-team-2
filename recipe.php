@@ -96,7 +96,7 @@
 
 		<tr><td>Comment</td><td>
 
-			<textarea name='Comment' id='Comment' cols='40'rows='5' 
+			<textarea name='comment' id='comment' cols='40'rows='5' 
 			onFocus='if(this.innerText == 'Enter your Comment here...') 
 			{this.innerText = '';}' 
 			onBlur='if (this.innerText == '') 
