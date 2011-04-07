@@ -17,14 +17,7 @@
       <div id="header_slogan"> Need to find a recipe fast come to a Dish in a Flash! </div>
     </div>
     <div id="left_content">
-
-<ul class='star-rating'>
-  <li><a href='#' title='Rate this 1 star out of 5' class='one-star'>1</a></li>
-  <li><a href='#' title='Rate this 2 stars out of 5' class='two-stars'>2</a></li>
-  <li><a href='#' title='Rate this 3 stars out of 5' class='three-stars'>3</a></li>
-  <li><a href='#' title='Rate this 4 stars out of 5' class='four-stars'>4</a></li>
-  <li><a href='#' title='Rate this 5 stars out of 5' class='five-stars'>5</a></li>
-</ul>
+    
 	<?php
 	  include("db_connect.php");
 
