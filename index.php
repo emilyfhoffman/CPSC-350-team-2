@@ -18,7 +18,6 @@
     <div id="left_content">
       <h1>Welcome to Dish in a Flash<br /><br/>
         <span>Need to find a recipe fast come to a Dish in a Flash!</span></h1>
-	<?php echo $_SESSION['name']; ?>
       <p>Welcome to a Dish in a Flash, your place to share your favorite recipes with family and friends.</p>
 	  <p>Food brings people together and at a Dish in a Flash you can browse for Recipes, share recipes with family and friends,
 	  and find a recipe quick and easy for any dish.</p>
