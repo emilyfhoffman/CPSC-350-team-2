@@ -28,7 +28,7 @@
    		
    					echo "<p>Thanks for logging in, $name</p>\n";
    					echo "<p><a href=\"index.php\">Continue back to Home Page</a></p>";
-                			$_SESSION['name'] = $row['username'];
+                			$_SESSION['name'] = $name;
    				}
    				else {
    					echo "<p>Incorrect username or password</p>\n";
