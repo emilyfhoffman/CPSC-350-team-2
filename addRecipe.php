@@ -1,9 +1,6 @@
 <?php
   session_start();
   
-  if(!isset($_SESSION['name'])){
-    header('Location: login.php');
-  }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,7 +28,7 @@
 		<tr><td>Recipe Name</td><td><input type="text" name="recipe_name" id="name" size="20"value="Name of recipe"/>
 		    </td></tr>
 		    
-		<tr><td>Cuisine</td><td>
+		<!--<tr><td>Cuisine</td><td>
 			<select name ="dish_type">
 			<option>breakfast</option>
 			<option>appetizer</option>
@@ -39,7 +36,7 @@
 			<option>side dish</option>
 			<option>dessert</option>
 			<option>drink</option>
-			</select></td></tr>
+			</select></td></tr>-->
 			
 		<tr><td>Ingredients</td><td>
 

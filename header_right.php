@@ -6,14 +6,8 @@
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <div id="right_column">
-  <?php
-  	if (isset($_SESSION['name'])) {
-  		echo "<div class=\"domain\"><a href=\"logout.php\">Log Out</a></div>";
-  	} else {
-  		echo "<div class=\"domain\"><a href=\"login.php\">Log In</a></div>";
-  	}
-  ?>
+ <div id="right_column">
+  <div class="domain">Made by DishInAFlash</div>
     <div id="menucolumn">
       <div class="menu_list">
         <ul>
@@ -24,31 +18,6 @@
       </div>
     </div>
     <div id="right_content">
-      <h2>HIGHEST RATED RECIPES</h2>
-      <ol>
-      	<?php
-      		include("db_connect.php");
-        	$query = "SELECT rec.recipe_id, rec.recipe_name, ROUND(AVG(rat.rating),1) as rating FROM recipes rec 
-			LEFT JOIN ratings rat ON rec.recipe_id=rat.recipe_id 
-			WHERE rec.recipe_name LIKE '%$sanitized_text%' GROUP BY rec.recipe_id ORDER BY rating DESC LIMIT 5";
-			
-			$result = mysqli_query($db, $query);
-	
-			while($row = mysqli_fetch_array($result)){
-	   			echo "<li>";
-	   			$name = $row['recipe_name'];
-				$id = $row['recipe_id'];
-				$avg = $row['rating'];
-				echo "<a href=\"recipe.php?id=$id\">$name</a>  $avg";
-				
-				echo "</li>";
-			}
-			
-			echo "</table>";
-      
-    	?>
-    	
-      </ol>
      </div>
   </div>
     <div id="footer">Copyright Dish in a Flash- Designed by Team 2 Session 2</a></div>

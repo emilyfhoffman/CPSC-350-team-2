@@ -14,7 +14,6 @@
    //include('header.html');
    include('db_connect.php');
    $name = $_POST['recipe_name'];
-   $dish_type = $_POST['dish_type'];
    $ingredients = $_POST['ingredients'];
    $instructions = $_POST['instructions'];
 ?>
@@ -26,54 +25,34 @@
       <div id="header_slogan">Need to find a recipe fast come to a Dish in a Flash!</div>
     </div>
     <div id="left_content">
-      <h1>Your Recipe Has Been Added<br />
-        <span>The Following:</span></h1>
-        
-      <p>Thank you for adding your recipe so everyone can view and enjoy!</p>
-      
-      	<table>
-      	
-      	<tr><td>Recipe Name</td><td>
-				<?php echo $name; ?>
-		<tr><td>Cuisine</td><td>
-				<?php echo $dish_type; ?>
-		<tr><td>Main Ingredients</td><td>
-				<?php echo $ingredients; ?> 
-		<tr><td>Instructions</td><td>
-				<?php echo $instructions; ?> 
-		<!--<tr><td>Results of Query</td><td>-->
-				<?php 
-					$id_array = array();
-					$ingredients_array = explode("\n", $ingredients);
-					$index = 0;
-					foreach($ingredients_array as $ingredient){
-						if(!mysqli_fetch_array(mysqli_query($db, "SELECT name FROM ingredients WHERE name = '$ingredient';"))){
-							$query = "INSERT INTO ingredients (name) VALUES ('$ingredient');";
-							mysqli_query($db, $query);
-						}
-						$query = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient'";
-						$row = mysqli_fetch_array(mysqli_query($db, $query));
-						$id_array[$index] = $row['ingredient_id'];
-						$index = $index + 1;
-					}
-					
-					//All ingredients are in the Ingredients table, and $id_array now contains all of their id's
-
+    
+      		<?php 
+					$collection = $db -> recipe;
+					$formatted_ingredients = str_replace("\n","<br>",$ingredients);
 					$formatted_instructions = str_replace("\n","<br>",$instructions);
-					$user = $_SESSION['name'];
-					$query = "INSERT INTO recipes (email_address, recipe_name, instructions, dish_type) VALUES ('$user','$name','$formatted_instructions','$dish_type');";
-					$results = mysqli_query($db,$query);
-
-					$query = "SELECT * FROM recipes WHERE email_address = '$user' AND recipe_name = '$name';";
-					$row = mysqli_fetch_array(mysqli_query($db, $query));
-					$recipe_id = $row['recipe_id'];
-					
-					foreach($id_array as $ingredient_id){
-						$query = "INSERT INTO recipe_to_ingredient (recipe_id, ingredient_id) VALUES ('$recipe_id', '$ingredient_id');";
-						mysqli_query($db, $query);
+					$queryName = array("recipe_name" => $name);
+					$nameEcho = $collection -> find($queryName);
+					$check = $nameEcho -> count();
+					if($check == 0){
+						echo "<h1>Your Recipe Has Been Added </h1><br />";
+						echo "<p>Thank you for adding your recipe so everyone can view and enjoy!</p>";
+					$recipeInsert = array("recipe_name" =>  $name, "ingredients" => $formatted_ingredients, "instructions" =>  $formatted_instructions);
+					$collection -> insert($recipeInsert);
+					$query = array("recipe_name" => $name);
+					$recipeEcho = $collection-> find($query);
+					foreach ($recipeEcho as $obj) {
+						echo 'Name: ' .$obj['recipe_name'] .'<br/>'. '<br/>';
+						echo 'Ingredients: ' . '<br/>'.$obj['ingredients'] .'<br/>'. '<br/>';
+						echo 'Instructions: '. '<br/>' .$obj['instructions'] .'<br/>'. '<br/>';
 					}
-				?>
-		</table>
+					}else{
+					echo "<h1>Recipe name already exists </h1><br />";
+        
+					echo "<p>Please choose a different name other than $name!</p>";
+					echo "<a href='addRecipe.php'>Click here to add another recipe</a>";
+					}
+					
+			?>
     </div>
   </div>
 	<?php include("header_right.php"); ?>

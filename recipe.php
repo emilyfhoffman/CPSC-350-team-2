@@ -15,110 +15,63 @@
     <div id="title">Dish in a <span> Flash</span></div>
     <div id="header">
       <div id="header_slogan"> Need to find a recipe fast come to a Dish in a Flash! </div>
-    </div>
+	</div>
     <div id="left_content">
-    
-	<?php
-	  include("db_connect.php");
-
-	   $id = $_GET['id'];
-	   $query = "select * from recipes where recipe_id = $id;";
-	   $result = mysqli_query($db, $query);
-	   $query = "select i.name from ingredients i natural join recipes r natural join recipe_to_ingredient ri where r.recipe_id = $id;";
-	   $result2 = mysqli_query($db, $query);
-	   $ingredients = "";
-	   while($row = mysqli_fetch_array($result2)){
-	   		$ingredients .= $row['name']."<br/>";
-	   }
-	   $row = mysqli_fetch_array($result);
-	   	$name = $row['recipe_name'];
-		$instructions = $row['instructions'];
-		$dish_type = $row['dist_type'];
-		
-	   	echo "<h1>$name</h1> <br />";
-		echo "$dish_type <br />";
-		echo "$ingredients <br />";
-		echo "$instructions <br/><br/>";
-		
-		$date = date('Y-m-d',time());
-		//echo $date;
-		$comment = $_POST['comment'];
-		$email = $_POST['Email'];
-		if($email != '' and $comment != null){
-			$formattedComment = str_replace("\n", "<br>", $comment);
-			$query = "INSERT INTO comments VALUES ('','$email','$id','$formattedComment','$date');";
-			$result = mysqli_query($db,$query);
-		}
-		
-		//figure out if we need to insert a new rating.
-		if (isset($_POST['rating'])){
-			$rating = $_POST['rating'];
-			$query = "INSERT INTO ratings VALUES ('$email','$id','$rating');";
-			$result = mysqli_query($db, $query);
-		}
-		
-		$query = "SELECT recipe_id FROM ratings WHERE recipe_id = '$id';";
-		$result = mysqli_query($db, $query);
-		echo "<strong>Average Rating:</strong>";
-		
-		//display the average rating
-		if(mysqli_num_rows($result) > 0){
-			$query = "SELECT ROUND(AVG(rating),1) avg FROM ratings WHERE recipe_id = '$id';";
-			$result = mysqli_query($db, $query);
-			$row = mysqli_fetch_array($result);
-			$avg = $row['avg'];
-			echo "  $avg";
-		}else{
-			echo "  not yet rated!"; 
-		}
-		echo "<br/><br/>";
+		<?php
+			include("db_connect.php");
+			//$id = $_POST['recipe_id'];
+			$name = $_GET['name'];
+			$collection = $db -> recipe;
+			$query = array("recipe_name" => $name);
+			$cursor = $collection -> find($query);
+			foreach ($cursor as $obj) {
+					echo 'Recipe Name: '.$obj['recipe_name'] .'<br/>'. '<br/>' ;
+					echo 'Ingredients: '. '<br/>' .$obj['ingredients'] .'<br/>'. '<br/>';
+					echo 'Instructions: '. '<br/>' .$obj['instructions'] .'<br/>'. '<br/>';
+			}
+			$collection = $db -> comments;
+			$date = date('m-d-y',time());
+			$comment = $_POST['comment'];
+			$email = $_POST['Email'];
+			if($email != '' and $comment != null){
+				$formattedComment = str_replace("\n", "<br>", $comment);
+				$commentInsert = array("email" => $email, "recipe_name" =>  $name, "comment" => $formattedComment, "date" => $date);
+				$collection -> insert($commentInsert);
+			}
+			echo "<strong>Comments</strong><br/><br/>";
+			$query = array("recipe_name" => $name);
+			$cursor = $collection-> find($query);
+			foreach ($cursor as $obj) {
+				echo 'Email: '.$obj['email'] .'<br/>';
+				echo 'Date: ' .$obj['date'] .'<br/>';
+				echo 'Comment: '.$obj['comment'] .'<br/>'. '<br/>';
+			}
+				
+				echo " <form method = 'post' action = \"recipe.php?name=$name\">
 			
-		
-		
-		echo "<strong>Comments</strong><br/><br/>";
-		$query = "SELECT * FROM comments WHERE recipe_id = '$id';";
-		$result = mysqli_query($db,$query);
-		$current_user = '';
-		while($row = mysqli_fetch_array($result)){
-			$date = $row['date'];
-			$comment = $row['comment'];
-			$email = $row['email_address'];
-			echo "Comment from ".$email." on ".$date.":<br/>".$comment."<br/><br/>";
-		}
-		
-		echo " <form method = 'post' action = 'recipe.php?id=$id'>
-			
-		<table>
-			<tr><td>E-mail</td><td>
-			<input type='text' id='Email' name='Email' value ='Enter your email address'/>
-		</td>
-	<tr><td>
+					<table>
+					<tr><td>E-mail</td><td>
+					<input type='text' id='Email' name='Email' value =''/>
+				</td>
+				<tr><td>
 
-		<tr><td>Comment</td><td>
+				<tr><td>Comment</td><td>
 
-			<textarea name='comment' id='comment' cols='40'rows='5' 
-			onFocus='if(this.innerText == 'Enter your Comment here...') 
-			{this.innerText = '';}' 
-			onBlur='if (this.innerText == '') 
-			{this.innerText = 'Enter your Comment here...';}' >Enter your Comment here...</textarea><br>
+					<textarea name='comment' id='comment' cols='40'rows='5' 
+					onFocus='if(this.innerText == '') 
+					{this.innerText = '';}' 
+					onBlur='if (this.innerText == '') 
+					{this.innerText = ';}' ></textarea><br>
 
-		</td>
-		</td>
-	</table>
-	<br/>
-	<tr><td>Rating</td></tr>
-	<tr><td><input type='radio' name = 'rating' value = '1'>1
-			<input type='radio' name = 'rating' value = '2'>2
-			<input type='radio' name = 'rating' value = '3'>3
-			<input type='radio' name = 'rating' value = '4'>4
-			<input type='radio' name = 'rating' value = '5'>5</td></tr><br/>
-	<br/>
-	<tr><td><input type='submit' value='Submit' /></td></tr>
+					</td>
+					</td>
+					</table>
+					<tr><td><input type='submit' value='Submit' /></td></tr>
 	
-	</form>
+					</form>
 			
- ";
-	?>
+				";
+		?>
     </div>
   </div>
 	<?php include('header_right.php'); ?>
